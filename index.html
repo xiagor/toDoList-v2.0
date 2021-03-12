@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ToDoList v2.0</title>
+		<link rel="stylesheet" href="./index.css" />
+	</head>
+
+	<body>
+		<header>
+			<div class="type-area">
+				<label for="toDoText">ToDoList</label>
+				<input
+					type="text"
+					name="toDoText"
+					id="toDoText"
+					placeholder="添加todo"
+				/>
+				<input type="text" placeholder="test" id="test" />
+			</div>
+		</header>
+
+		<div class="content">
+			<section>
+				<h3>
+					正在进行
+					<a href="javascript:clear(false);">clear </a>
+					<span id="toDoCount">0</span>
+				</h3>
+				<div class="toDoContainer">
+					<div class="itemAll">
+						<ul id="toDoList"></ul>
+					</div>
+				</div>
+			</section>
+			<section>
+				<h3>
+					已经完成
+					<a href="javascript:clear(true);">clear</a>
+					<span id="doneCount">0</span>
+				</h3>
+				<div class="doneContainer">
+					<div class="itemAll">
+						<ul id="doneList"></ul>
+					</div>
+				</div>
+			</section>
+		</div>
+		<script src="./index.js"></script>
+	</body>
+</html>

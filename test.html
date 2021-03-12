@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>虚拟列表test</title>
+		<link rel="stylesheet" href="./index.css" />
+		<style>
+			.container {
+				height: 700px;
+				overflow: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="type-area">
+				<label for="toDoText">ToDoList</label>
+				<input
+					type="text"
+					name="toDoText"
+					id="toDoText"
+					placeholder="添加todo"
+				/>
+				<input
+					type="text"
+					placeholder="请输入批量添加的数量并回车"
+					id="test"
+				/>
+			</div>
+		</header>
+		<div class="content">
+			<section>
+				<h3>
+					正在进行
+					<a href="javascript:clear(false);">clear </a>
+					<span id="toDoCount">0</span>
+				</h3>
+				<div class="container">
+					<div class="itemAll">
+						<ul id="toDoList"></ul>
+					</div>
+				</div>
+			</section>
+		</div>
+		<script>
+			var container = document.querySelector(".container"); //可视区域元素
+			let toDoList = document.querySelector("#toDoList");
+
+			let viewHeight =
+				document.documentElement.clientHeight >
+				document.body.scrollHeight
+					? document.documentElement.clientHeight
+					: document.body.scrollHeight;
+
+			var itemHeight = 50;
+
+			var start = 0;
+			var pageSize = Math.floor((viewHeight - 113) / itemHeight);
+			console.log(viewHeight, pageSize);
+			var total = 50;
+
+			container.style.height = pageSize * itemHeight + "px";
+
+			var todoList = [];
+			for (let i = 0; i < total; i++) {
+				let todoString = `<input type="checkbox" />
+								<p>todo${i}</p>
+								<a>x</a>`;
+				todoList.push(todoString);
+			}
+
+			for (let i = 0; i < pageSize; i++) {
+				let newEle = document.createElement("li");
+				newEle.setAttribute("draggable", "true");
+				toDoList.appendChild(newEle);
+			}
+
+			// 设置数据列表的总高度
+			document.querySelector(".itemAll").style.height =
+				itemHeight * total + "px";
+			updateDom(start, pageSize, itemHeight, 0);
+
+			function updateDom(start, pageSize, itemHeight, height) {
+				document.querySelector("#toDoList").style.transform =
+					"translateY(" + height + "px)";
+				let all = document.querySelectorAll("li");
+				for (
+					var i = start, itemIndex = 0, len = start + pageSize;
+					i < len;
+					i++, itemIndex++
+				) {
+					var index = i % pageSize;
+					all[itemIndex].innerHTML = todoList[i];
+				}
+			}
+
+			function handleScroller() {
+				var lastStart = 0;
+				return () => {
+					var currentScrollTop = container.scrollTop;
+					var fixedScrollTop =
+						currentScrollTop - (currentScrollTop % itemHeight);
+					var start = Math.floor(currentScrollTop / itemHeight);
+					console.log(currentScrollTop, fixedScrollTop, start);
+					if (lastStart !== start) {
+						lastStart = start;
+						updateDom(start, pageSize, itemHeight, fixedScrollTop);
+					}
+				};
+			}
+
+			document
+				.querySelector(".container")
+				.addEventListener("scroll", handleScroller(), false);
+		</script>
+	</body>
+</html>
