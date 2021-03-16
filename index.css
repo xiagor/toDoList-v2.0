@@ -4,29 +4,25 @@ body {
 	background-color: #ccc;
 }
 
-/* 版心 */
-.type-area {
-	width: 600px;
-	margin: 0 auto;
-}
-
-header {
+.header {
 	min-width: 1100px;
 	background-color: #333;
 }
-header div {
+.header .type-area {
+	width: 600px;
+	margin: 0 auto;
 	height: 50px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
-header label {
+.header .title {
 	color: #eee;
 	font-size: 18px;
 	font-weight: 700;
 	cursor: pointer;
 }
-header input {
+.header input {
 	width: 300px;
 	height: 24px;
 	padding-left: 12px;
@@ -35,10 +31,7 @@ header input {
 }
 
 #test {
-	position: absolute;
-	left: 50px;
 	width: 100px;
-	outline: 0;
 }
 
 .content {
@@ -62,9 +55,6 @@ section {
 ul {
 	margin: 0;
 	padding: 0;
-	/* 在调试虚拟列表 */
-	/* max-height: 800px;
-	overflow-y: auto; */
 }
 li {
 	list-style: none;
